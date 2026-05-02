@@ -1,65 +1,88 @@
-# SVU Library Management System
+# 📚 SVU Library Management System
 
-This is a complete Library Management System built with HTML, CSS, JavaScript, and SQLite.
+A robust, full‑stack **Library Management System** designed to streamline student and administrator workflows at Sri Venkateswara University.  
+Built with **HTML, CSS (Glassmorphism UI), JavaScript, Node.js (Express), and SQLite**, this project demonstrates end‑to‑end system design, database integration, and secure role‑based access.
 
-## Project Structure
+---
 
-- `index.html`: Home page.
-- `studentLogin.html`: Student login and registration.
-- `adminLogin.html`: Admin login.
-- `dashboard/`: Contains dashboard pages for Student and Admin.
-- `css/`: Styling using variable-based CSS and Glassmorphism.
-- `db/`: Contains the SQLite database (`svuLibrary.db`) and initialization script.
-- `server.js`: Node.js server to handle SQLite interactions.
+## 🚀 Key Highlights
+- **Role‑based Access**: Separate login and dashboards for Students and Admins.
+- **Database‑Driven**: SQLite backend (`svuLibrary.db`) with initialization scripts for reproducibility.
+- **Modern UI**: Variable‑based CSS with Glassmorphism styling for a clean, professional interface.
+- **Secure Operations**: Node.js Express server mediates all database interactions, ensuring safe file access.
+- **Comprehensive Features**:
+  - Student: Registration, login, profile view (issued books, fines), query submission.
+  - Admin: Manage students/books, issue/return books with fine calculation, respond to queries.
 
-## Prerequisites
+---
 
-- Node.js installed on your machine.
+## 📂 Project Structure
+SVU_Library_Management/
+│
+├── index.html              # Home page
+├── studentLogin.html       # Student login & registration
+├── adminLogin.html         # Admin login
+├── dashboard/              # Role-specific dashboards
+├── css/                    # Styling (Glassmorphism, variables)
+├── db/                     # SQLite database & init script
+├── server.js               # Node.js Express backend
+├── js/                     # Frontend logic
+├── images/                 # Static assets
+└── README.md               # Documentation
 
-## Setup & Run Instructions
+Code
 
-1. **Install Dependencies**:
-   Open a terminal in the project folder and run:
+
+---
+
+## ⚙️ Prerequisites
+- [Node.js](https://nodejs.org/) installed locally.
+
+---
+
+## 🛠️ Setup & Run
+1. **Install Dependencies**
    ```bash
    npm install
-   ```
+Initialize Database (optional reset)
 
-2. **Initialize Database**:
-   (Already done, but if needed to reset)
-   ```bash
-   npm run init-db
-   ```
+bash
+npm run init-db
+Start the Server
 
-3. **Start the Server**:
-   ```bash
-   npm start
-   ```
-   or
-   ```bash
-   node server.js
-   ```
+bash
+npm start
+Access Application
+Open http://localhost in your browser.
 
-4. **Access the Application**:
-   Open your browser and navigate to:
-   `http://localhost:3000`
+🔑 Default Accounts
+Admin → ID: admin | Password: admin123
 
-## Accounts
+Student → ID: S001 | Password: student123 (or register a new student)
 
-- **Admin Login**:
-  - Admin ID: `admin`
-  - Password: `admin123`
+🧩 Technical Notes
+Backend: Minimal Node.js Express server for safe SQLite interactions.
 
-- **Student Login**:
-  - Sample ID: `S001`
-  - Password: `student123`
-  - Or Register a new student.
+Frontend: All application logic, validation, and UI handled in JavaScript.
 
-## Features
+📊 Tech Stack
+Frontend: HTML, CSS, JavaScript
 
-- **Students**: Register, Login, View Profile (Issued Books, Fines), Submit Queries.
-- **Admin**: Login, View All Students/Books/Queries, Add Books, Add Students, Issue Books, Accept Returns (Calculate Fines).
+Backend: Node.js (Express)
 
-## Technical Note
+Database: SQLite
 
-- The backend is a minimal Node.js Express server used *strictly* to safely interact with the SQLite database file (`svuLibrary.db`), as browsers cannot write to files directly.
-- All application logic (Flow, Validation, UI) is handled in the frontend JavaScript.
+UI/UX: Glassmorphism, responsive design
+
+📈 Roadmap
+🔒 Enhance authentication with JWT or OAuth.
+
+📱 Add mobile‑responsive layouts.
+
+📊 Integrate analytics dashboard for usage insights.
+
+☁️ Deploy on cloud (Heroku/Railway) for production use.
+
+👨‍💻 Author
+Developed by Vamsi Sakepuram  
+Data Science Project Developer | Hackathon Winner | Full‑Stack Enthusiast
