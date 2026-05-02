@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVU Library - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="home-page">
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <h2>SVU Library</h2>
+            <a href="studentLogin.html">Student</a>
+            <a href="adminLogin.html">Admin</a>
+            <a href="#about" onclick="showSection('about')">About Us</a>
+            <a href="#services" onclick="showSection('services')">Services</a>
+            <a href="#contact" onclick="showSection('contact')">Contact Us</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-area flex items-center justify-center">
+            <!-- Hero Section (Default) -->
+            <div id="home-section" class="home-hero glass-card">
+                <h1>SVU Library Management System</h1>
+                <div>
+                    <button onclick="window.location.href='studentLogin.html'"
+                        class="btn btn-primary btn-lg">STUDENT</button>
+                    <button onclick="window.location.href='adminLogin.html'"
+                        class="btn btn-primary btn-lg">ADMIN</button>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div id="about" class="glass-card hidden" style="max-width: 800px;">
+                <h1>About Us</h1>
+                <p>Welcome to the SVU Library Management System. Our goal is to provide a seamless experience for
+                    students and administrators to manage library resources efficiently. We offer a vast collection of
+                    books and digital resources to support academic excellence.</p>
+            </div>
+
+            <!-- Services Section -->
+            <div id="services" class="glass-card hidden" style="max-width: 800px;">
+                <h1>Our Services</h1>
+                <ul>
+                    <li>Book Issuance and Returns</li>
+                    <li>Online Catalog Search</li>
+                    <li>Digital Library Access</li>
+                    <li>Student Query Resolution</li>
+                    <li>Quiet Reading Rooms</li>
+                </ul>
+            </div>
+
+            <!-- Contact Section -->
+            <div id="contact" class="glass-card hidden" style="max-width: 800px;">
+                <h1>Contact Us</h1>
+                <p><strong>Address:</strong> SVU University Campus, Liberty Way, Cityville.</p>
+                <p><strong>Email:</strong> support@svulibrary.edu</p>
+                <p><strong>Phone:</strong> +1 234 567 8900</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            // Hide all sections
+            const sections = ['home-section', 'about', 'services', 'contact'];
+            sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+
+            // Show target
+            const target = document.getElementById(id);
+            if (target) target.classList.remove('hidden');
+        }
+    </script>
+
+</body>
+
+</html>

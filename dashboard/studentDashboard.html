@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Dashboard</h2>
+            <a href="#" onclick="showSection('profile')" class="active" id="nav-profile">My Profile</a>
+            <a href="#" onclick="showSection('queries')" id="nav-queries">My Queries</a>
+            <a href="../index.html">Home</a>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area">
+            <h1 id="welcomeText" style="margin-top: 0;">Welcome</h1>
+
+            <!-- Profile Section -->
+            <div id="profile" class="section">
+                <div class="glass-card mb-4" style="margin-bottom: 2rem;">
+                    <h2>Student Details</h2>
+                    <div class="flex" style="gap: 2rem;">
+                        <div>
+                            <p><strong>ID:</strong> <span id="p_id">Loading...</span></p>
+                            <p><strong>Name:</strong> <span id="p_name"></span></p>
+                        </div>
+                        <div>
+                            <p><strong>Branch:</strong> <span id="p_branch"></span></p>
+                            <p><strong>Books Issued:</strong> <span id="p_books"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h2>Issued Books</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Book ID</th>
+                                    <th>Book Name</th>
+                                    <th>Issue Date</th>
+                                    <th>Return Date</th>
+                                    <th>Fine</th>
+                                </tr>
+                            </thead>
+                            <tbody id="booksTableBody">
+                                <!-- Dynamic -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Queries Section -->
+            <div id="queries" class="section hidden">
+                <div class="glass-card">
+                    <h2>Submit a Query</h2>
+                    <textarea id="queryText" rows="5" placeholder="Write your query here..."></textarea>
+                    <button onclick="submitQuery()" class="btn btn-primary">Submit Query</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/db.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        // Logic specific to Student Dashboard
+        const user = getStoredUser('student');
+        if (!user) window.location.href = '../studentLogin.html';
+
+        document.getElementById('welcomeText').textContent = `SVU Library Management System welcomes you, ${user.name}`;
+
+        // Load Profile
+        async function loadProfile() {
+            // Fetch fresh data
+            try {
+                const freshUser = await db.getStudent(user.student_id);
+
+                if (freshUser) {
+                    document.getElementById('p_id').textContent = freshUser.student_id;
+                    document.getElementById('p_name').textContent = freshUser.name;
+                    document.getElementById('p_branch').textContent = freshUser.branch;
+                    document.getElementById('p_books').textContent = freshUser.no_of_books || 0;
+                }
+
+                loadBooks(user.student_id);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function loadBooks(id) {
+            try {
+                const books = await db.getIssuedBooks(id);
+                const tbody = document.getElementById('booksTableBody');
+                tbody.innerHTML = '';
+
+                books.forEach(b => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td>${b.book_id}</td>
+                    <td>${b.book_name}</td>
+                    <td>${b.issue_date}</td>
+                    <td>${b.return_date}</td>
+                    <td>${b.fine}</td>
+                `;
+                    tbody.appendChild(tr);
+                });
+            } catch (e) { console.error(e); }
+        }
+
+        async function submitQuery() {
+            const text = document.getElementById('queryText').value;
+            if (!text) return alert("Please write a query");
+
+            try {
+                const data = await db.submitQuery(user.student_id, text);
+                if (data.success) {
+                    alert("Query Submitted!");
+                    document.getElementById('queryText').value = '';
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(d => d.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+
+            // Update nav
+            document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+            document.getElementById(`nav-${id}`).classList.add('active');
+        }
+
+        // Init
+        loadProfile();
+
+    </script>
+
+</body>
+
+</html>
