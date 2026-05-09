@@ -4,7 +4,7 @@ A complete, full-stack **Library Management System** built for Sri Venkateswara 
 
 ---
 
-## 🗂️ Project Structure
+## 🗂️ Project Structure  
 
 ```
 SVU_Library_Management/
